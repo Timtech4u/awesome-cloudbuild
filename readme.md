@@ -2,6 +2,8 @@
 
 > A curated list of resources about all things Google Cloud Build
 
+![awesome-cloud-build.png](./awesome-cloud-build.png)
+
 ## What is Cloud Build?
 
 Cloud Build is a service that executes your builds on Google Cloud Platform infrastructure.
@@ -54,6 +56,7 @@ Tutorials on Cloud Build.
 - [Configuring notifications for third-party services ](https://cloud.google.com/cloud-build/docs/configure-third-party-notifications)
 - [ Accessing private GitHub repositories ](https://cloud.google.com/cloud-build/docs/access-private-github-repos)
 - [ Running builds on GitHub ](https://cloud.google.com/cloud-build/docs/run-builds-on-github)
+- [Automate Building Android APKs with Google Cloud Build CI/CD and a Gradle Docker Image](https://fullstackgcp.com/automate-building-android-apks-with-google-cloud-build-cicd-and-a-gradle-docker-image-cloud-cjy15jb3o0028css1m0og45nw)
 - [Building Singularity containers using Cloud Build](https://cloud.google.com/community/tutorials/singularity-containers-with-cloud-build)
 - [Perform Angular server-side (pre-)rendering with Cloud Build](https://cloud.google.com/community/tutorials/cloudbuild-angular-universal)
 - [Create A Cloud Build Image Factory Using Packer](https://cloud.google.com/community/tutorials/create-cloud-build-image-factory-using-packer)
