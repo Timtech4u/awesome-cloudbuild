@@ -59,6 +59,7 @@ Tutorials on Cloud Build.
 - [Automate Building Android APKs with Google Cloud Build CI/CD and a Gradle Docker Image](https://fullstackgcp.com/automate-building-android-apks-with-google-cloud-build-cicd-and-a-gradle-docker-image-cloud-cjy15jb3o0028css1m0og45nw)
 - [Building Singularity containers using Cloud Build](https://cloud.google.com/community/tutorials/singularity-containers-with-cloud-build)
 - [Perform Angular server-side (pre-)rendering with Cloud Build](https://cloud.google.com/community/tutorials/cloudbuild-angular-universal)
+- [Simplified Continuous Deployment on Google Cloud Platform](https://medium.com/@timtech4u/simplified-continuous-deployment-on-google-cloud-platform-bc5b0a025c4e)
 - [Create A Cloud Build Image Factory Using Packer](https://cloud.google.com/community/tutorials/create-cloud-build-image-factory-using-packer)
 - [Automated Static Website Publishing with Cloud Build](https://cloud.google.com/community/tutorials/automated-publishing-cloud-build)
 - [Using Cloud Build as a test runner](https://cloud.google.com/community/tutorials/cloudbuild-test-runner)
