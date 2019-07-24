@@ -84,6 +84,7 @@ Articles on Cloud Build.
 - [A Better Approach to Google Cloud Continuous Deployment](https://www.toptal.com/devops/better-google-cloud-continuous-deployment)
 - [GitLab- Google CloudBuild](https://about.gitlab.com/devops-tools/cloudbuild/)
 - [Terraform - Google Cloud Build](https://www.terraform.io/docs/providers/google/r/cloud_build_trigger.html)
+- [Best practices for building containers)[https://cloud.google.com/solutions/best-practices-for-building-containers]
 
 ## Cloud Builders
 
