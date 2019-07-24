@@ -1,0 +1,4 @@
+steps:
+  # build & push the container image using kaniko
+- name: "gcr.io/kaniko-project/executor:latest"
+  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/reactjs:latest"]
