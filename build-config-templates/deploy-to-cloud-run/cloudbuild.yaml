@@ -1,0 +1,3 @@
+# Deploys IMAGE to cloud run as *myservice*
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ['beta', 'run', 'deploy', 'myservice', '--image', 'gcr.io/$PROJECT_ID/IMAGE:latest', '--region', 'us-central1', '--allow-unauthenticated', '--platform', 'managed']
