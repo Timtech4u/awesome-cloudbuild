@@ -21,7 +21,7 @@ Cloud Build executes your build as a series of build steps, where each build ste
 - [Articles](#articles)
 - [Cloud Builders](#cloud-builders)
 - [Community Cloud Builders](#community-cloud-builders)
-- [Build Configuration Templates](#build-configuration-templates)
+- [Cloud Build Configuration File Templates](#cloud-build-configuration-file-templates)
 - [Meetups](#meetups)
 
 
@@ -181,9 +181,14 @@ Community-contributed images for Google Cloud Build, codes on [GitHub](https://g
 - [zip: runs the zip tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/zip)
 
 
-## Build Configuration Templates
-- [Vuejs Docker Build and Push to GCR](./build-config-templates/vuejs-docker)
-- [Reactjs Docker Build and Push to GCR](./build-config-templates/reactjs-docker)
+## Cloud Build Configuration File Templates
+
+- [Reactjs Docker Build and Push to GCR](./build-config-templates/build-reactjs-docker-image)
+- [Vuejs Docker Build and Push to GCR](./build-config-templates/build-vuejsjs-docker-image)
+- [Deploy to Cloud Run](./build-config-templates/deploy-to-cloud-run)
+- [Deploy to App Engine](./build-config-templates/deploy-to-app-engine)
+- [Deploy to Compute Engine](./build-config-templates/deploy-to-compute-engine)
+
 
 ## Meetups
 

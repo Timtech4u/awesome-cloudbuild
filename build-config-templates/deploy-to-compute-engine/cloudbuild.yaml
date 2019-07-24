@@ -1,0 +1,3 @@
+# Deploys IMAGE to compute engine as *my-instance*
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ['compute', 'instances', 'create-with-container', 'my-instance', '--container-image', 'gcr.io/$PROJECT_ID/IMAGE:latest']

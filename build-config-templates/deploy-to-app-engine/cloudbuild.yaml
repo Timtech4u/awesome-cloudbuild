@@ -1,2 +1,3 @@
+# Deploys to App Engine using app.yaml configuration
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy"]
