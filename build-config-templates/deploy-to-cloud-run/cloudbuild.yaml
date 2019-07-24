@@ -1,3 +1,7 @@
+steps:
+  # build & push the container image to gcr using kaniko - requires a Dockerfile in same directory
+- name: "gcr.io/kaniko-project/executor:latest"
+  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/IMAGE:latest"]
 # Deploys IMAGE to cloud run as *myservice*
 - name: "gcr.io/cloud-builders/gcloud"
   args: ['beta', 'run', 'deploy', 'myservice', '--image', 'gcr.io/$PROJECT_ID/IMAGE:latest', '--region', 'us-central1', '--allow-unauthenticated', '--platform', 'managed']

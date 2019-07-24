@@ -183,11 +183,11 @@ Community-contributed images for Google Cloud Build, codes on [GitHub](https://g
 
 ## Cloud Build Configuration File Templates
 
-- [Reactjs Docker Build and Push to GCR](./build-config-templates/build-reactjs-docker-image)
-- [Vuejs Docker Build and Push to GCR](./build-config-templates/build-vuejsjs-docker-image)
-- [Deploy to Cloud Run](./build-config-templates/deploy-to-cloud-run)
-- [Deploy to App Engine](./build-config-templates/deploy-to-app-engine)
-- [Deploy to Compute Engine](./build-config-templates/deploy-to-compute-engine)
+The **cloudbuild.yaml** templates are to guide you in creating yours. You can find [Dockerfiles here](https://github.com/jessfraz/dockerfiles)
+
+- [Deploy to Cloud Run](./build-config-templates/deploy-to-cloud-run/cloudbuild.yaml)
+- [Deploy to App Engine](./build-config-templates/deploy-to-app-engine/cloudbuild.yaml)
+- [Deploy to Compute Engine](./build-config-templates/deploy-to-compute-engine/cloudbuild.yaml)
 
 
 ## Meetups
