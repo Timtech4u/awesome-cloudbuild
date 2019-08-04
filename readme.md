@@ -73,6 +73,7 @@ Tutorials on Cloud Build.
 - [Google Cloud Build with Spinnaker](https://www.spinnaker.io/setup/ci/gcb/)
 - [Deploying a Gatsby Site to Firebase with Google Cloud Build (CI/CD)](https://dev.to/leomercier/deploying-a-gatsby-site-to-firebase-with-google-cloud-build-ci-cd-511c)
 - [Continuous Deployment with Cloud Build](https://codelabs.developers.google.com/codelabs/cloud-builder-gke-continuous-deploy/index.html#0)
+- [How to pass data between Cloud Build steps](https://medium.com/google-cloud/how-to-pass-data-between-cloud-build-steps-de5c9ebc4cdd)
 
 ## Articles
 
