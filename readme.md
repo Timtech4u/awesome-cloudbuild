@@ -22,6 +22,7 @@ Cloud Build executes your build as a series of build steps, where each build ste
 - [Cloud Builders](#cloud-builders)
 - [Community Cloud Builders](#community-cloud-builders)
 - [Cloud Build Configuration File Templates](#cloud-build-configuration-file-templates)
+- [Tools](#tools)
 - [Meetups](#meetups)
 
 
