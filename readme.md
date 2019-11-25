@@ -87,6 +87,12 @@ Articles on Cloud Build.
 - [GitLab- Google CloudBuild](https://about.gitlab.com/devops-tools/cloudbuild/)
 - [Terraform - Google Cloud Build](https://www.terraform.io/docs/providers/google/r/cloud_build_trigger.html)
 - [Best practices for building containers](https://cloud.google.com/solutions/best-practices-for-building-containers)
+- [Develop, Deploy, and Debug Using Google Cloud Developer Tools (Cloud Next '19)](https://www.youtube.com/watch?v=yP9a5gDRUqY)
+- [Develop Faster on Kubernetes With Google Container Tools and Cloud Build (Cloud Next '19)](https://www.youtube.com/watch?v=TYx0BTyFtmc)
+- [Repeatable GCP Environments at Scale With Cloud Build Infra-As-Code Pipelines (Cloud Next '19)](https://www.youtube.com/watch?v=3vfXQxWJazM)
+- [Shift Left: Continuous Integration Testing with Cloud Build (Cloud Next '19)](https://www.youtube.com/watch?v=pqCq24aEka4)
+- [Cloud Build with Containers - Take5](https://www.youtube.com/watch?v=w7dMHiEyGAs)
+- [Continuous Deployment with Google Cloud Build | 9.6.18 | Linux Academy](https://www.youtube.com/watch?v=BpNRwpAwB8o)
 
 ## Cloud Builders
 
@@ -104,6 +110,9 @@ Supported builder images for Google Cloud Build, codes on [GitHub](https://githu
 - [gsutil: runs the gsutil tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gsutil)
 - [javac: runs the javac tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/javac)
 - [kubectl: runs the kubectl tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/kubectl)
+- [Make a Cloud Build Step That Always Succeeds](https://medium.com/@davidstanke/make-a-cloud-build-step-that-always-succeeds-9d23290a2f4e)
+- [How to pass data between Cloud Build steps](https://medium.com/google-cloud/how-to-pass-data-between-cloud-build-steps-de5c9ebc4cdd)
+- [Mastering Google Cloud Build Config Syntax](https://medium.com/@davidstanke/mastering-google-cloud-build-config-syntax-8c3024607daf)
 - [mvn: runs the maven tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/mvn)
 - [npm: runs the npm tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/npm)
 - [wget: runs the wget tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/wget)
