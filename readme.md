@@ -203,7 +203,7 @@ The **cloudbuild.yaml** templates are to guide you in creating yours. You can fi
 ## Tools
 
 * [buildstatus](https://github.com/mchmarny/buildstatus) Cloud Build status notifications in Slack using Cloud Run
-* [buildhub.dev](https://buildhub.dev/)[Enable build notification from Google Cloudbuild to Slack]
+* [buildhub.dev](https://buildhub.dev/) Enable build notification from Google Cloudbuild to Slack
 
 
 ## Meetups
