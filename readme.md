@@ -204,8 +204,8 @@ The **cloudbuild.yaml** templates are to guide you in creating yours. You can fi
 
 * [buildstatus](https://github.com/mchmarny/buildstatus) Cloud Build status notifications in Slack using Cloud Run
 * [buildhub.dev](https://buildhub.dev/) Enable build notification from Google Cloudbuild to Slack
+* [cloudbuild-slack](https://github.com/onsails/cloudbuild-slack) Customisable Cloud Build status notifications in Slack using Cloud Functions
 * [gcb-visualizer](https://github.com/RyanSiu1995/gcb-visualizer) Visualize the cloud build pipeline with Graphviz
-
 
 ## Meetups
 
