@@ -147,7 +147,7 @@ Community-contributed images for Google Cloud Build, codes on [GitHub](https://g
 - [esy: runs the esy tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/esy)
 - [fastlane: runs the fastlane tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/fastlane)
 - [firebase: runs the firebase tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/firebase)
-- [flutter: runs the flutter tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/firebase)
+- [flutter: runs the flutter tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/flutter)
 - [fsharp: runs the fsharp tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/fsharp)
 - [glide: runs the glide tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/glide)
 - [google-closure-compiler: runs the google-closure-compiler tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/google-closure-compiler)
