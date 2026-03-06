@@ -1,7 +1,36 @@
+# Prefer a user-managed service account for production builds.
+substitutions:
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _SERVICE: my-service
+  _REGION: us-central1
+
 steps:
-  # build & push the container image to gcr using kaniko - requires a Dockerfile in same directory
-- name: "gcr.io/kaniko-project/executor:latest"
-  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/IMAGE:latest"]
-# Deploys IMAGE to cloud run as *myservice*
-- name: "gcr.io/cloud-builders/gcloud"
-  args: ['beta', 'run', 'deploy', 'myservice', '--image', 'gcr.io/$PROJECT_ID/IMAGE:latest', '--region', 'us-central1', '--allow-unauthenticated', '--platform', 'managed']
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+  - .
+
+- name: gcr.io/cloud-builders/docker
+  args:
+  - push
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: gcloud
+  args:
+  - run
+  - deploy
+  - ${_SERVICE}
+  - --image=${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+  - --region=${_REGION}
+  - --platform=managed
+  - --quiet
+
+images:
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_SERVICE}:${SHORT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,0 +1,30 @@
+# The private pool must already exist in the configured region.
+substitutions:
+  _POOL_REGION: us-central1
+  _PRIVATE_POOL: my-private-pool
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _IMAGE: my-image
+
+steps:
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+  - .
+
+- name: gcr.io/cloud-builders/docker
+  args:
+  - push
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+images:
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: projects/$PROJECT_ID/locations/${_POOL_REGION}/workerPools/${_PRIVATE_POOL}
+
+requestedVerifyOption: VERIFIED

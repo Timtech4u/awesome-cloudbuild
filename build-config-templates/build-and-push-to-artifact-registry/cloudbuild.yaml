@@ -1,0 +1,24 @@
+# Prefer a user-managed service account for production builds.
+substitutions:
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _IMAGE: my-image
+
+steps:
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:latest
+  - .
+
+images:
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+requestedVerifyOption: VERIFIED

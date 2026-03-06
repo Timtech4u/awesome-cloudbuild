@@ -1,7 +1,43 @@
+# This template replaces deprecated `create-with-container` workflows.
+# The target VM must already exist, have Docker installed, and be able to
+# authenticate to Artifact Registry with its attached service account.
+substitutions:
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _IMAGE: web
+  _INSTANCE: my-instance
+  _ZONE: us-central1-a
+  _CONTAINER_NAME: web
+  _CONTAINER_PORT: "8080"
+
 steps:
-  # build & push the container image to gcr using kaniko - requires a Dockerfile in same directory
-- name: "gcr.io/kaniko-project/executor:latest"
-  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/IMAGE:latest"]
-# Deploys IMAGE to compute engine as *my-instance*
-- name: "gcr.io/cloud-builders/gcloud"
-  args: ['compute', 'instances', 'create-with-container', 'my-instance', '--container-image', 'gcr.io/$PROJECT_ID/IMAGE:latest']
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+  - .
+
+- name: gcr.io/cloud-builders/docker
+  args:
+  - push
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: bash
+  args:
+  - -ceu
+  - |
+      IMAGE_URI="${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}"
+      gcloud compute ssh "${_INSTANCE}" \
+        --zone="${_ZONE}" \
+        --command="sudo docker pull ${IMAGE_URI} && \
+        (sudo docker stop ${_CONTAINER_NAME} || true) && \
+        (sudo docker rm ${_CONTAINER_NAME} || true) && \
+        sudo docker run -d --restart=always --name ${_CONTAINER_NAME} -p 80:${_CONTAINER_PORT} ${IMAGE_URI}"
+
+images:
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,23 +1,33 @@
 # Awesome Cloud Build [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> A curated list of resources about all things Google Cloud Build
+> A curated list of high-signal resources for Google Cloud Build in 2026: CI, triggers, private pools, Artifact Registry, supply chain security, and modern delivery pipelines.
 
 ![awesome-cloud-build.png](./awesome-cloud-build.png)
 
 ## What is Cloud Build?
 
-Cloud Build is a service that executes your builds on Google Cloud Platform infrastructure.
+Cloud Build is Google Cloud's managed build platform for running CI pipelines, building containers and packages, generating provenance, and shipping artifacts into services such as Artifact Registry, Cloud Run, GKE, App Engine, and Cloud Deploy.
 
-Cloud Build can import source code from Google Cloud Storage, Cloud Source Repositories, GitHub, or Bitbucket, execute a build to your specifications, and produce artifacts.
+In 2026, the Cloud Build ecosystem is materially different from the 2021 version of this list:
 
-Cloud Build executes your build as a series of build steps, where each build step is run in a Docker container by a builder image.
-
+- Artifact Registry is the default artifact destination; Container Registry is deprecated and has been shut down in stages.
+- Private pools, regional builds, and larger machine families are mainstream for enterprise workloads.
+- Cloud Build repositories (2nd gen) and Developer Connect are the modern source integration model for GitHub, GitLab, and Bitbucket.
+- SLSA provenance, security insights, and Software Delivery Shield have made Cloud Build part of Google Cloud's software supply chain security story.
+- Cloud Deploy is now the recommended managed CD layer when you want promotion logic beyond "build and deploy in one file".
 
 ## Contents
 
 - [Useful links](#useful-links)
+- [What's new since 2021](#whats-new-since-2021)
 - [Quickstarts](#quickstarts)
 - [Tutorials](#tutorials)
+- [Security & Supply Chain](#security--supply-chain)
+- [Repositories, Triggers & Source Integrations](#repositories-triggers--source-integrations)
+- [Private Pools & Regional Builds](#private-pools--regional-builds)
+- [Cloud Deploy & Delivery](#cloud-deploy--delivery)
+- [AI/ML & Troubleshooting](#aiml--troubleshooting)
+- [Migration & Deprecations](#migration--deprecations)
 - [Articles](#articles)
 - [Cloud Builders](#cloud-builders)
 - [Community Cloud Builders](#community-cloud-builders)
@@ -25,188 +35,234 @@ Cloud Build executes your build as a series of build steps, where each build ste
 - [Tools](#tools)
 - [Meetups](#meetups)
 
-
 ## Useful links
 
-Useful links on Cloud Build.
+- [Cloud Build product page](https://cloud.google.com/build)
+- [Cloud Build documentation](https://cloud.google.com/build/docs)
+- [Cloud Build release notes](https://cloud.google.com/build/docs/release-notes)
+- [Build configuration file schema](https://cloud.google.com/build/docs/build-config-file-schema)
+- [Cloud Build pricing](https://cloud.google.com/build/pricing)
+- [Cloud Build quotas and limits](https://cloud.google.com/build/quotas)
+- [Cloud Build locations](https://cloud.google.com/build/docs/locations)
+- [Cloud Build console](https://console.cloud.google.com/cloud-build)
+- [CI/CD on Google Cloud](https://cloud.google.com/docs/ci-cd)
+- [Artifact Registry documentation](https://cloud.google.com/artifact-registry/docs)
+- [Cloud Deploy documentation](https://cloud.google.com/deploy/docs)
+- [Cloud Build public issue tracker component](https://issuetracker.google.com/issues?q=componentid:190802)
+- [Official builder catalog](https://github.com/GoogleCloudPlatform/cloud-builders)
+- [Community builder catalog](https://github.com/GoogleCloudPlatform/cloud-builders-community)
+- [Cloud Build samples](https://github.com/GoogleCloudPlatform/cloud-build-samples)
+- [Cloud Build notifiers](https://github.com/GoogleCloudPlatform/cloud-build-notifiers)
+- [Google Cloud buildpacks](https://github.com/GoogleCloudPlatform/buildpacks)
+- [Stack Overflow: `google-cloud-build`](https://stackoverflow.com/questions/tagged/google-cloud-build)
 
-- [Product Overview](https://cloud.google.com/cloud-build/)
-- [Official Documentation](https://cloud.google.com/cloud-build/docs/)
-- [Cloud Build  How-to guides](https://cloud.google.com/cloud-build/docs/how-to)
-- [Cloud Build Console](https://console.cloud.google.com/cloud-build)
-- [CI/CD on Google Cloud](https://cloud.google.com/docs/ci-cd/)
-- [StackOverflow](http://stackoverflow.com/questions/tagged/google-cloud-build)
-- [File bugs or feature requests](https://issuetracker.google.com/issues?q=componentid:190802)
-- [Pricing](https://cloud.google.com/cloud-build/pricing)
-- [Quotas & Limits](https://cloud.google.com/cloud-build/quotas)
-- [Release Notes](https://cloud.google.com/cloud-build/release-notes)
+## What's new since 2021
+
+- `2021`: Private pools reached GA, making VPC-connected, enterprise-isolated builds a first-class option.
+- `2022`: Regional builds and triggers went GA, which matters for data residency, latency, and private networking.
+- `2022`: [Software Delivery Shield](https://cloud.google.com/software-delivery-shield/docs/overview) launched to connect Cloud Build, Artifact Registry, Binary Authorization, and provenance into one supply chain story.
+- `2023`: Cloud Build repositories (2nd gen) entered preview and then GA, modernizing repository connections beyond the original trigger model.
+- `2023`: Cloud Build added [SLSA v1.0 build provenance](https://cloud.google.com/build/docs/securing-builds/generate-validate-build-provenance) support and Google-signed OIDC identity tokens for more secure downstream integrations.
+- `2023`: The free tier changed to align with the `e2-standard-2` default machine type and newer pricing tiers.
+- `2024`: Bitbucket Cloud and Bitbucket Data Center support arrived for 2nd gen source integrations.
+- `2024`: New-project behavior for the default Cloud Build service account changed; explicit user-managed service accounts are now the safer default pattern.
+- `2024`: More organization policy controls landed, including custom constraints for Cloud Build resources.
+- `2025`: Developer Connect-backed triggers reached GA, which is now the preferred route for several source providers.
+- `2025`: Private pool machine families expanded again, including `c3` and `n2d`, for higher-performance builds.
+- `2025`: Build graph quality-of-life features improved with custom Pub/Sub topics, build dependency support, and better log field mapping.
 
 ## Quickstarts
 
-Quickstarts for Cloud Build.
-
-- [Quickstart for Docker](https://cloud.google.com/cloud-build/docs/quickstart-docker)
-- [Quickstart for Go](https://cloud.google.com/cloud-build/docs/quickstart-go)
-- [Quickstart for Packer](https://cloud.google.com/cloud-build/docs/quickstart-packer)
-
+- [Build and push a Docker image](https://cloud.google.com/build/docs/build-push-docker-image)
+- [Build Go applications](https://cloud.google.com/build/docs/building/build-go)
+- [Build Java applications](https://cloud.google.com/build/docs/building/build-java)
+- [Build Node.js applications](https://cloud.google.com/build/docs/building/build-nodejs)
+- [Build applications with buildpacks](https://cloud.google.com/docs/buildpacks/build-application)
+- [Deploy to Cloud Run with Cloud Build](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
+- [Create and manage build triggers](https://cloud.google.com/build/docs/triggers)
+- [Store build artifacts in Artifact Registry](https://cloud.google.com/build/docs/building/store-artifacts-in-artifact-registry)
+- [Create your first Cloud Deploy pipeline](https://cloud.google.com/deploy/docs/deploy-app-run)
 
 ## Tutorials
 
-Tutorials on Cloud Build.
+- [GitOps-style continuous delivery with Cloud Build and GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build)
+- [Access private GitHub repositories from builds](https://cloud.google.com/build/docs/access-github-from-build)
+- [Run builds from GitHub](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github)
+- [Use private pools in a private network](https://cloud.google.com/build/docs/private-pools/use-in-private-network)
+- [Access private GKE clusters from private pools](https://cloud.google.com/build/docs/private-pools/access-private-gke-clusters-with-cloud-build-private-pools)
+- [Configure third-party notifications](https://cloud.google.com/build/docs/configuring-notifications/configure-third-party-notifications)
+- [Generate and validate build provenance](https://cloud.google.com/build/docs/securing-builds/generate-validate-build-provenance)
+- [View security insights for builds](https://cloud.google.com/build/docs/securing-builds/view-build-security-insights)
+- [Manage build dependencies](https://cloud.google.com/build/docs/building/manage-dependencies)
+- [Speed up builds](https://cloud.google.com/build/docs/optimize-builds/speeding-up-builds)
+- [Best practices for speeding up builds](https://cloud.google.com/build/docs/optimize-builds/best-practices)
+- [Use manual, Pub/Sub, and webhook triggers](https://cloud.google.com/build/docs/triggers)
+- [Deploy to Cloud Run using Cloud Deploy](https://cloud.google.com/deploy/docs/deploy-app-run)
+- [Deploy to GKE using Cloud Deploy](https://cloud.google.com/deploy/docs/gke-deploy-app)
+- [Build and deploy on GitHub with Workload Identity Federation](https://github.com/google-github-actions/auth)
 
-- [GitOps-style continuous delivery with Cloud Build ](https://cloud.google.com/kubernetes-engine/docs/tutorials/gitops-cloud-build)
-- [Configuring notifications for third-party services ](https://cloud.google.com/cloud-build/docs/configure-third-party-notifications)
-- [ Accessing private GitHub repositories ](https://cloud.google.com/cloud-build/docs/access-private-github-repos)
-- [ Running builds on GitHub ](https://cloud.google.com/cloud-build/docs/run-builds-on-github)
-- [Automate Building Android APKs with Google Cloud Build CI/CD and a Gradle Docker Image](https://fullstackgcp.com/automate-building-android-apks-with-google-cloud-build-cicd-and-a-gradle-docker-image-cloud-cjy15jb3o0028css1m0og45nw)
-- [Building Singularity containers using Cloud Build](https://cloud.google.com/community/tutorials/singularity-containers-with-cloud-build)
-- [Perform Angular server-side (pre-)rendering with Cloud Build](https://cloud.google.com/community/tutorials/cloudbuild-angular-universal)
-- [Simplified Continuous Deployment on Google Cloud Platform](https://medium.com/@timtech4u/simplified-continuous-deployment-on-google-cloud-platform-bc5b0a025c4e)
-- [Create A Cloud Build Image Factory Using Packer](https://cloud.google.com/community/tutorials/create-cloud-build-image-factory-using-packer)
-- [Automated Static Website Publishing with Cloud Build](https://cloud.google.com/community/tutorials/automated-publishing-cloud-build)
-- [Using Cloud Build as a test runner](https://cloud.google.com/community/tutorials/cloudbuild-test-runner)
-- [Run an Elixir Phoenix app with Cloud Run](https://cloud.google.com/community/tutorials/elixir-phoenix-on-cloud-build-cloud-run)
-- [WhiteSource - Google Cloud Build Integration](https://whitesource.atlassian.net/wiki/spaces/WD/pages/544604326/Google+Cloud+Build+Integration)
-- [Utilizing Caches When Building Go Projects On Google Cloud Build](https://blog.container-solutions.com/utilizing-caches-when-building-go-projects-on-google-cloud-build)
-- [Automatic Builds at Your Fingertips With GCP Cloud Build](https://mydeveloperplanet.com/2019/05/08/automatic-builds-at-your-fingertips-with-gcp-cloud-build/)
-- [Simplifying Continuous Deployment to Cloud Run with Cloud Build including Custom Domain Setup(SSL)](https://medium.com/google-cloud/simplifying-continuous-deployment-to-cloud-run-with-cloud-build-including-custom-domain-setup-ssl-22d23bed5cd6)
-- [ Continuous Integration and Deployment with Google Cloud Build - Fireship ](https://fireship.io/lessons/ci-cd-with-google-cloud-build/)
-- [Google Cloud Build with Spinnaker](https://www.spinnaker.io/setup/ci/gcb/)
-- [Deploying a Gatsby Site to Firebase with Google Cloud Build (CI/CD)](https://dev.to/leomercier/deploying-a-gatsby-site-to-firebase-with-google-cloud-build-ci-cd-511c)
-- [Continuous Deployment with Cloud Build](https://codelabs.developers.google.com/codelabs/cloud-builder-gke-continuous-deploy/index.html#0)
-- [How to pass data between Cloud Build steps](https://medium.com/google-cloud/how-to-pass-data-between-cloud-build-steps-de5c9ebc4cdd)
+## Security & Supply Chain
+
+- [Secure your builds overview](https://cloud.google.com/build/docs/securing-builds/secure-builds-overview)
+- [Generate and validate SLSA build provenance](https://cloud.google.com/build/docs/securing-builds/generate-validate-build-provenance)
+- [Use Google-signed OIDC tokens](https://cloud.google.com/build/docs/securing-builds/oidc)
+- [View build security insights](https://cloud.google.com/build/docs/securing-builds/view-build-security-insights)
+- [Use user-specified service accounts](https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts)
+- [Configure private pools](https://cloud.google.com/build/docs/private-pools/private-pools-overview)
+- [Software Delivery Shield overview](https://cloud.google.com/software-delivery-shield/docs/overview)
+- [Artifact Analysis and SBOM guidance](https://cloud.google.com/artifact-analysis/docs)
+- [Binary Authorization documentation](https://cloud.google.com/binary-authorization/docs)
+- [SLSA verifier](https://github.com/slsa-framework/slsa-verifier)
+
+## Repositories, Triggers & Source Integrations
+
+- [Cloud Build repositories overview](https://cloud.google.com/build/docs/repositories)
+- [Create and manage repositories](https://cloud.google.com/build/docs/repositories)
+- [Developer Connect overview](https://cloud.google.com/developer-connect/docs/overview)
+- [Create and manage triggers](https://cloud.google.com/build/docs/triggers)
+- [Build repositories from GitHub](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github)
+- [Build repositories from GitHub Enterprise](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github-enterprise)
+- [Build repositories from GitLab](https://cloud.google.com/build/docs/automating-builds/gitlab/build-repos-from-gitlab)
+- [Build repositories from GitLab Enterprise](https://cloud.google.com/build/docs/automating-builds/gitlab/build-repos-from-gitlab-enterprise-edition)
+- [Build repositories from Bitbucket Cloud](https://cloud.google.com/build/docs/automating-builds/bitbucket/build-repos-from-bitbucket-cloud)
+- [Build repositories from Bitbucket Data Center](https://cloud.google.com/build/docs/automating-builds/bitbucket/build-repos-from-bitbucket-data-center)
+- [Webhook triggers](https://cloud.google.com/build/docs/automating-builds/create-webhook-triggers)
+- [Pub/Sub triggers](https://cloud.google.com/build/docs/automate-builds-pubsub-events)
+- [Manual triggers](https://cloud.google.com/build/docs/manually-build-code-source-repos)
+
+Architecture note:
+Cloud Build still supports repository, webhook, Pub/Sub, and manual triggers. For broader event-driven automation across products, teams increasingly pair Cloud Build with Eventarc, Workflows, or Cloud Run rather than treating Cloud Build triggers as the only orchestration layer.
+
+## Private Pools & Regional Builds
+
+- [Private pools overview](https://cloud.google.com/build/docs/private-pools/private-pools-overview)
+- [Create and manage private pools](https://cloud.google.com/build/docs/private-pools/create-manage-private-pools)
+- [Use private pools in a private network](https://cloud.google.com/build/docs/private-pools/use-in-private-network)
+- [Access private GKE clusters with private pools](https://cloud.google.com/build/docs/private-pools/access-private-gke-clusters-with-cloud-build-private-pools)
+- [Cloud Build locations](https://cloud.google.com/build/docs/locations)
+- [Cloud Build pricing](https://cloud.google.com/build/pricing)
+- [Choose machine types and CPU scaling options](https://cloud.google.com/build/docs/optimize-builds/increase-vcpu-for-builds)
+
+## Cloud Deploy & Delivery
+
+- [Cloud Deploy overview](https://cloud.google.com/deploy/docs/overview)
+- [Cloud Deploy quickstart for Cloud Run](https://cloud.google.com/deploy/docs/deploy-app-run)
+- [Cloud Deploy quickstart for GKE](https://cloud.google.com/deploy/docs/gke-deploy-app)
+- [Cloud Deploy delivery pipelines](https://cloud.google.com/deploy/docs/create-pipeline-targets)
+- [Skaffold documentation](https://skaffold.dev/docs/)
+- [Progressive delivery on Google Cloud](https://cloud.google.com/docs/ci-cd)
+
+Why this matters:
+Cloud Build remains excellent for CI and for simple "build then deploy" flows. Once you need staged promotions, approvals, rollouts, or environment-specific release controls, use Cloud Build to create artifacts and Cloud Deploy to own the CD pipeline.
+
+## AI/ML & Troubleshooting
+
+- [Boost your Continuous Delivery pipeline with Generative AI](https://cloud.google.com/blog/products/devops-sre/boost-your-continuous-delivery-pipeline-with-generative-ai)
+- [Free to be SRE: How to use generative AI for root cause analysis and remediation](https://cloud.google.com/blog/products/devops-sre/free-to-be-sre-how-to-use-generative-ai-for-root-cause-analysis-and-remediation)
+- [Gemini Cloud Assist plus Personalized Service Health](https://cloud.google.com/blog/products/ai-machine-learning/how-personalized-service-health-works-with-gemini-cloud-assist)
+- [Troubleshoot build failures](https://cloud.google.com/build/docs/troubleshooting)
+
+Cloud Build does not yet have a single "Gemini mode" that replaces build authoring. The current pattern is AI-assisted troubleshooting, release analysis, and remediation around Cloud Build logs, Cloud Deploy rollouts, and production signals.
+
+## Migration & Deprecations
+
+- [Transition from Container Registry to Artifact Registry](https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr)
+- [Container Registry shutdown details](https://cloud.google.com/artifact-registry/docs/transition/prepare-gcr-shutdown)
+- [Cloud Build service account change](https://cloud.google.com/build/docs/cloud-build-service-account-updates)
+- [Create and manage repositories](https://cloud.google.com/build/docs/repositories)
+- [Cloud Source Repositories notice](https://cloud.google.com/source-repositories/docs/quickstart)
+- [Compute Engine container startup agent deprecation](https://cloud.google.com/compute/docs/containers/prepare-for-container-agent-shutdown)
+
+Important migrations to plan for:
+
+- Move all `gcr.io` and `*.gcr.io` flows to Artifact Registry-managed repositories, even when you keep the `gcr.io` hostname for compatibility.
+- Prefer Cloud Build repositories (2nd gen) or Developer Connect for new SCM integrations.
+- Stop relying on the legacy default Cloud Build service account behavior; pin builds to a least-privilege service account explicitly.
+- Do not use deprecated Compute Engine container startup agent workflows such as `create-with-container` for new deployments.
 
 ## Articles
 
-Articles on Cloud Build.
-
-- [ Build configuration overview ](https://cloud.google.com/cloud-build/docs/build-config)
-- [CircleCI vs Google Cloud Build](https://www.praqma.com/stories/circle-ci-google-cloud-build/)
-- [Google announces Cloud Build, its new continuous integration and delivery platform](https://techcrunch.com/2018/07/24/google-announces-cloud-build-its-new-continuous-integration-continuous-delivery-platform/)
-- [A Better Approach to Google Cloud Continuous Deployment](https://www.toptal.com/devops/better-google-cloud-continuous-deployment)
-- [GitLab- Google CloudBuild](https://about.gitlab.com/devops-tools/cloudbuild/)
-- [Terraform - Google Cloud Build](https://www.terraform.io/docs/providers/google/r/cloud_build_trigger.html)
-- [Best practices for building containers](https://cloud.google.com/solutions/best-practices-for-building-containers)
-- [Develop, Deploy, and Debug Using Google Cloud Developer Tools (Cloud Next '19)](https://www.youtube.com/watch?v=yP9a5gDRUqY)
-- [Develop Faster on Kubernetes With Google Container Tools and Cloud Build (Cloud Next '19)](https://www.youtube.com/watch?v=TYx0BTyFtmc)
-- [Repeatable GCP Environments at Scale With Cloud Build Infra-As-Code Pipelines (Cloud Next '19)](https://www.youtube.com/watch?v=3vfXQxWJazM)
-- [Shift Left: Continuous Integration Testing with Cloud Build (Cloud Next '19)](https://www.youtube.com/watch?v=pqCq24aEka4)
-- [Cloud Build with Containers - Take5](https://www.youtube.com/watch?v=w7dMHiEyGAs)
-- [Continuous Deployment with Google Cloud Build | 9.6.18 | Linux Academy](https://www.youtube.com/watch?v=BpNRwpAwB8o)
+- [Cloud Build release notes](https://cloud.google.com/build/docs/release-notes)
+- [Software Delivery Shield: secure your software supply chain](https://cloud.google.com/blog/products/application-development/introducing-software-delivery-shield)
+- [DevSecOps and CI/CD using Google Cloud built-in services](https://cloud.google.com/blog/products/application-development/devsecops-and-cicd-on-google-cloud-built-in-services)
+- [Boost your Continuous Delivery pipeline with Generative AI](https://cloud.google.com/blog/products/devops-sre/boost-your-continuous-delivery-pipeline-with-generative-ai)
+- [Free to be SRE: generative AI for root cause analysis and remediation](https://cloud.google.com/blog/products/devops-sre/free-to-be-sre-how-to-use-generative-ai-for-root-cause-analysis-and-remediation)
+- [Personalized Service Health with Gemini Cloud Assist](https://cloud.google.com/blog/products/ai-machine-learning/how-personalized-service-health-works-with-gemini-cloud-assist)
+- [Deploy applications to Cloud Run with Cloud Build](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run)
+- [Best practices for building containers](https://cloud.google.com/architecture/best-practices-for-building-containers)
 
 ## Cloud Builders
 
-Supported builder images for Google Cloud Build, codes on [GitHub](https://github.com/GoogleCloudPlatform/cloud-builders)
+Supported builder images live in the official [cloud-builders](https://github.com/GoogleCloudPlatform/cloud-builders) repository. Start there before creating a custom builder.
 
-- [bazel: runs the bazel tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/bazel)
-- [curl: runs the curl tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/curl)
-- [docker: runs the docker tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/docker)
-- [dotnet: run the dotnet tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/dotnet)
-- [gcloud: runs the gcloud tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud)
-- [git: runs the git tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/git)
-- [gke-deploy: runs the gke-deployer tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gke-deploy)
-- [go: runs the go tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/go)
-- [gradle: runs the gradle tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gradle)
-- [gsutil: runs the gsutil tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gsutil)
-- [javac: runs the javac tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/javac)
-- [kubectl: runs the kubectl tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/kubectl)
-- [Make a Cloud Build Step That Always Succeeds](https://medium.com/@davidstanke/make-a-cloud-build-step-that-always-succeeds-9d23290a2f4e)
-- [How to pass data between Cloud Build steps](https://medium.com/google-cloud/how-to-pass-data-between-cloud-build-steps-de5c9ebc4cdd)
-- [Mastering Google Cloud Build Config Syntax](https://medium.com/@davidstanke/mastering-google-cloud-build-config-syntax-8c3024607daf)
-- [mvn: runs the maven tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/mvn)
-- [npm: runs the npm tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/npm)
-- [wget: runs the wget tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/wget)
-- [yarn: runs the yarn tool](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/yarn)
+- [docker](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/docker)
+- [gcloud](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud)
+- [git](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/git)
+- [go](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/go)
+- [gke-deploy](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gke-deploy)
+- [kubectl](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/kubectl)
+- [mvn](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/mvn)
+- [npm](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/npm)
+- [yarn](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/yarn)
+- [curl](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/curl)
+- [wget](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/wget)
+- [dotnet](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/dotnet)
+
+Also useful:
+
+- [Use buildpacks instead of hand-written Dockerfiles](https://cloud.google.com/docs/buildpacks/overview)
+- [Create custom builders](https://cloud.google.com/build/docs/configuring-builds/use-community-and-custom-builders)
 
 ## Community Cloud Builders
 
-Community-contributed images for Google Cloud Build, codes on [GitHub](https://github.com/GoogleCloudPlatform/cloud-builders-community)
+Community-contributed builders live in [cloud-builders-community](https://github.com/GoogleCloudPlatform/cloud-builders-community). These are source projects, not hosted public images; build and publish the ones you trust into your own Artifact Registry repository before using them in production.
 
-- [android: runs the android tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/android)
-- [ansible: runs the ansible tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/ansible)
-- [awscli: runs the awscli tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/awscli)
-- [az-kubectl: runs the azure-kubectl tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/az-kubectl)
-- [az: runs the azure cli tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/az)
-- [bandit: runs the bandit tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/bandit)
-- [base-image-builder:  runs the base-image-builder tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/base-image-builder)
-- [binauthz-attestation: runs the Binary Authorization tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/binauthz-attestation)
-- [boot: runs the boot tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/boot)
-- [bq: runs the bigquery tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/bq)
-- [buildah: runs the buildah tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/buildah)
-- [cache: runs the cache tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/cache)
-- [cargo: runs the Rust cargo tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/cargo)
-- [cft: runs the cloud foundation toolkit](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/cft)
-- [compodoc: runs the compodoc tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/compodoc)
-- [composer: runs the composer tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/composer)
-- [container-diff: runs the container-diff tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/container-diff)
-- [cron-helper: runs the cron-helper tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/cron-helper)
-- [dataflow-python: runs the dataflow-python tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/dataflow-python)
-- [dep: runs the go dep tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/dep)
-- [docker-compose: runs the docker-compose tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/docker-compose)
-- [envsubst: runs the envsubst tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/envsubst)
-- [esy: runs the esy tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/esy)
-- [fastlane: runs the fastlane tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/fastlane)
-- [firebase: runs the firebase tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/firebase)
-- [flutter: runs the flutter tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/flutter)
-- [fsharp: runs the fsharp tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/fsharp)
-- [glide: runs the glide tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/glide)
-- [google-closure-compiler: runs the google-closure-compiler tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/google-closure-compiler)
-- [helm: runs the helm tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/helm)
-- [hub: runs the hub tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/hub)
-- [hugo: runs the hugo tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/hugo)
-- [inspec: runs the inspec tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/inspec)
-- [jfrog: runs the jfrog tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/jfrog)
-- [jmeter: runs the jmeter tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/jmeter)
-- [jsonnet: runs the jsonner tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/jsonnet)
-- [kaniko: runs the kaniko tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kaniko)
-- [kubectl_wait_for_job: runs the kubectl_wait_for_job tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kubectl_wait_for_job)
-- [kustomize:: runs the kustomize tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kustomize)
-- [make: runs the make tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/make)
-- [makisu: runs the makisu tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/make)
-- [mortar: runs the mortar tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/mortar)
-- [ng: runs the ng tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/ng)
-- [nix-build: runs the nix-build tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/nix-build)
-- [npm-jasmine-node: runs the npm-jasmine-node tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/npm-jasmine-node)
-- [packer: runs the packer tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/packer)
-- [pelican: runs the pelican tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pelican)
-- [protoc: runs the protoc tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/protoc)
-- [pulumi: runs the pulumi tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pulumi)
-- [puppet-lint: runs the puppet lint tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/puppet-lint)
-- [pylint: runs the pylint tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pylint)
-- [remote-builder: runs the remote-builder tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/remote-builder)
-- [rocker: runs the rocker tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/rocker)
-- [s2i: runs the s2i tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/s2i)
-- [scala-sbt: runs the scala-sbt tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/scala-sbt)
-- [shellcheck: runs the shellcheck tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/shellcheck)
-- [singularity: runs the singularity tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/singularity)
-- [skaffold: runs the skaffold tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/skaffold)
-- [slackbot: runs the slackbot tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/slackbot)
-- [sonarqube: runs the sonarqube tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/sonarqube)
-- [swift: runs the swift tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/swift)
-- [tar: runs the tar tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/tar)
-- [terraform: runs the terraform tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/terraform)
-- [terragrunt: runs the terragrunt tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/terragrunt)
-- [traceroute: runs the traceroute tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/traceroute)
-- [windows-builder: runs the windows-builder tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/windows-builder)
-- [yarn-puppeteer: runs the yarn-puppeteer tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/yarn-puppeteer)
-- [zip: runs the zip tool](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/zip)
-
+- [kaniko](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kaniko)
+- [buildah](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/buildah)
+- [terraform](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/terraform)
+- [terragrunt](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/terragrunt)
+- [packer](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/packer)
+- [pulumi](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pulumi)
+- [helm](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/helm)
+- [kustomize](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/kustomize)
+- [skaffold](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/skaffold)
+- [firebase](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/firebase)
+- [awscli](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/awscli)
+- [az](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/az)
+- [ansible](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/ansible)
+- [shellcheck](https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/shellcheck)
 
 ## Cloud Build Configuration File Templates
 
-The **cloudbuild.yaml** templates are to guide you in creating yours. You can find [Dockerfiles here](https://github.com/jessfraz/dockerfiles)
+The templates in [`build-config-templates/`](./build-config-templates/) are modernized for Artifact Registry, regional builds, Cloud Deploy, multi-arch images, and private pools.
 
+- [Build and push to Artifact Registry](./build-config-templates/build-and-push-to-artifact-registry/cloudbuild.yaml)
 - [Deploy to Cloud Run](./build-config-templates/deploy-to-cloud-run/cloudbuild.yaml)
 - [Deploy to App Engine](./build-config-templates/deploy-to-app-engine/cloudbuild.yaml)
 - [Deploy to Compute Engine](./build-config-templates/deploy-to-compute-engine/cloudbuild.yaml)
+- [Create a Cloud Deploy release](./build-config-templates/deploy-to-cloud-deploy/cloudbuild.yaml)
+- [Build and push a multi-arch image](./build-config-templates/build-multi-arch-image/cloudbuild.yaml)
+- [Run builds on a private pool](./build-config-templates/private-pool-build-and-push/cloudbuild.yaml)
 
 ## Tools
 
-* [buildstatus](https://github.com/mchmarny/buildstatus) Cloud Build status notifications in Slack using Cloud Run
-* [buildhub.dev](https://buildhub.dev/) Enable build notification from Google Cloudbuild to Slack
-* [cloudbuild-slack](https://github.com/onsails/cloudbuild-slack) Customisable Cloud Build status notifications in Slack using Cloud Functions
-* [gcb-visualizer](https://github.com/RyanSiu1995/gcb-visualizer) Visualize the cloud build pipeline with Graphviz
+- [Cloud Build samples](https://github.com/GoogleCloudPlatform/cloud-build-samples) Reference pipelines for Docker, Cloud Run, Functions, private pools, caching, and monorepos.
+- [Cloud Build notifiers](https://github.com/GoogleCloudPlatform/cloud-build-notifiers) Official Slack, SMTP, HTTP, BigQuery, Google Chat, and GitHub Issue notifier support.
+- [Google Cloud buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) Google-maintained buildpacks for Cloud Run, Cloud Functions, and container builds.
+- [google-github-actions/auth](https://github.com/google-github-actions/auth) Workload Identity Federation from GitHub Actions into Google Cloud.
+- [Skaffold](https://skaffold.dev/) Build, tag, and render support that pairs well with Cloud Build and Cloud Deploy.
+- [pack](https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/) Local CLI for buildpacks workflows before moving them into Cloud Build.
+- [SLSA verifier](https://github.com/slsa-framework/slsa-verifier) Verify provenance emitted by Cloud Build.
+- [Terraform Google provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs) Manage triggers, repositories, worker pools, Artifact Registry, and Cloud Deploy infrastructure as code.
+- [buildstatus](https://github.com/mchmarny/buildstatus) Slack notifications from Cloud Build using Cloud Run.
+- [buildhub.dev](https://buildhub.dev/) Hosted Slack notifications for Cloud Build.
+- [cloudbuild-slack](https://github.com/onsails/cloudbuild-slack) Slack notifier for Cloud Build using Cloud Functions.
+- [gcb-visualizer](https://github.com/RyanSiu1995/gcb-visualizer) Visualize Cloud Build pipelines with Graphviz.
 
 ## Meetups
 
-Meetups on Cloud Build
+- [Google Cloud events](https://cloud.google.com/events)
+- [Google Cloud Tech on YouTube](https://www.youtube.com/@GoogleCloudTech)
+- [Google Cloud Next](https://cloud.withgoogle.com/next)
+
+If you want recurring, current Cloud Build content, Google Cloud events, Cloud Next sessions, and the Google Cloud Tech channel are more reliable in 2026 than older meetup pages.

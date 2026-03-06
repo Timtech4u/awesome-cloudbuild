@@ -1,4 +1,16 @@
+substitutions:
+  _APP_YAML: app.yaml
+
 steps:
-# Deploys to App Engine using app.yaml configuration : https://cloud.google.com/appengine/docs/standard/python/configuration-files
-- name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy"]
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: gcloud
+  args:
+  - app
+  - deploy
+  - ${_APP_YAML}
+  - --version=${SHORT_SHA}
+  - --promote
+  - --quiet
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,0 +1,24 @@
+substitutions:
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _IMAGE: my-image
+  _PLATFORMS: linux/amd64,linux/arm64
+
+steps:
+- name: gcr.io/cloud-builders/docker
+  entrypoint: bash
+  args:
+  - -ceu
+  - |
+      docker run --privileged --rm tonistiigi/binfmt --install all
+      docker buildx create --name multiarch --use || docker buildx use multiarch
+      docker buildx inspect --bootstrap
+      docker buildx build \
+        --platform "${_PLATFORMS}" \
+        --tag "${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}" \
+        --push \
+        .
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8

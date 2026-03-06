@@ -1,0 +1,42 @@
+# Assumes your repository already contains a skaffold.yaml and that the
+# Cloud Deploy delivery pipeline and targets already exist.
+substitutions:
+  _AR_LOCATION: us-central1
+  _AR_REPOSITORY: applications
+  _IMAGE: web
+  _DELIVERY_PIPELINE: my-pipeline
+  _DEPLOY_REGION: us-central1
+  _RELEASE_PREFIX: release
+  _SKAFFOLD_FILE: skaffold.yaml
+
+steps:
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+  - .
+
+- name: gcr.io/cloud-builders/docker
+  args:
+  - push
+  - ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: gcloud
+  args:
+  - deploy
+  - releases
+  - create
+  - ${_RELEASE_PREFIX}-${SHORT_SHA}
+  - --delivery-pipeline=${_DELIVERY_PIPELINE}
+  - --region=${_DEPLOY_REGION}
+  - --source=.
+  - --skaffold-file=${_SKAFFOLD_FILE}
+  - --images=${_IMAGE}=${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+images:
+- ${_AR_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_IMAGE}:${SHORT_SHA}
+
+options:
+  logging: CLOUD_LOGGING_ONLY
